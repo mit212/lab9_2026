@@ -7,25 +7,27 @@ data = []
 x = []
 y = []
 val = []
-p1a = True
+
+# Boolean variables for running different parts of the code
+p1a = False
 p1b = False
 p1c = False
 
 def plotpoint(point, label = None):
 	if label == 0:
-		plt.plot(point[0],point[1],'ro')
+		plt.plot(point[0], point[1], 'ro')
 	elif label == 1:
-		plt.plot(point[0],point[1],'bo')
+		plt.plot(point[0], point[1], 'bo')
 	else:
-		plt.plot(point[0],point[1],'g')
+		plt.plot(point[0], point[1], 'g')
 
 def plotpointtest(point, label = None):
 	if label == 0:
-		plt.plot(point[0],point[1],'r+')
+		plt.plot(point[0], point[1], 'r+')
 	elif label == 1:
-		plt.plot(point[0],point[1],'b+')
+		plt.plot(point[0], point[1], 'b+')
 	else:
-		plt.plot(point[0],point[1],'g')
+		plt.plot(point[0], point[1], 'g')
 
 with open('data_a.csv',newline = '') as csvfile:
 	reader = csv.reader(csvfile, delimiter = ',', quotechar = '|')
@@ -34,29 +36,32 @@ with open('data_a.csv',newline = '') as csvfile:
 		y.append(float(row[1]))
 		val.append(float(row[2]))
 
+# plot the training data
 if p1a:
 	for i in range(len(x)):
 		if val[i] == 0:
-			plt.plot(x[i],y[i],'ro')
+			plt.plot(x[i], y[i], 'ro')
 		else:
-			plt.plot(x[i],y[i],'bo')
+			plt.plot(x[i], y[i], 'bo')
 
+# train a linear SVM classifer and use it to classify and plot the test data
 if p1b:
 	for i in range(len(x)):
 		data.append([x[i], y[i]])
 
-	clf = svm.LinearSVC()
-	clf.fit(data,val)
+	clf = svm.LinearSVC() # creates an instance of the Linear SVC class
+	clf.fit(data, val) 	  # fits the data and their labels (val) using our SVM
+					   	  # with a linear kernel
 
-	testpoint1 = [2,2]
-	testpoint2 = [-1,3]
+	testpoint1 = [2, 2]
+	testpoint2 = [-1, 3]
 	label1 = clf.predict([testpoint1])
 	label2 = clf.predict([testpoint2])
-	plotpointtest(testpoint1,label1)
-	plotpointtest(testpoint2,label2)
+	plotpointtest(testpoint1, label1)
+	plotpointtest(testpoint2, label2)
 
+# compute and plot the decision function
 if p1c:
-	# plot the decision function
 	ax = plt.gca()
 	xlim = ax.get_xlim()
 	ylim = ax.get_ylim()

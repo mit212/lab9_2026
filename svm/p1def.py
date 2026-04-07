@@ -7,24 +7,26 @@ data = []
 x = []
 y = []
 val = []
+
+# Boolean variables for running different parts of the code
 p1d = True
 p1e = True
 p1f = True
 
 def plotpoint(point, label = None):
 	if label == 0:
-		plt.plot(point[0],point[1],'ro')
+		plt.plot(point[0], point[1], 'ro')
 	elif label == 1:
-		plt.plot(point[0],point[1],'bo')
+		plt.plot(point[0], point[1], 'bo')
 	else:
-		plt.plot(point[0],point[1],'g')
+		plt.plot(point[0], point[1], 'g')
 def plottestpoint(point, label = None):
 	if label == 0:
-		plt.plot(point[0],point[1],'r+')
+		plt.plot(point[0], point[1], 'r+')
 	elif label == 1:
-		plt.plot(point[0],point[1],'b+')
+		plt.plot(point[0], point[1], 'b+')
 	else:
-		plt.plot(point[0],point[1],'g')
+		plt.plot(point[0], point[1], 'g')
 with open('data_b.csv',newline = '') as csvfile:
 	reader = csv.reader(csvfile, delimiter = ',', quotechar = '|')
 	for row in reader:
@@ -32,13 +34,15 @@ with open('data_b.csv',newline = '') as csvfile:
 		y.append(float(row[1]))
 		val.append(float(row[2]))
 
+# plot the training data
 if p1d:
 	for i in range(len(x)):
 		if val[i] == 0:
-			plt.plot(x[i],y[i],'ro')
+			plt.plot(x[i], y[i], 'ro')
 		else:
-			plt.plot(x[i],y[i],'bo')
+			plt.plot(x[i], y[i], 'bo')
 
+# train a radial SVM classifer and use it to classify and plot the test data
 if p1e:
 	for i in range(len(x)):
 		data.append([x[i], y[i]])
@@ -51,20 +55,20 @@ if p1e:
 	
 	# Question 3
 	# TODO: Try changing the kernel!
-	# clf = svm.SVC(kernel = 'poly')
+	# clf = svm.SVC(kernel = 'sigmoid')
 	
 	# Question 4
 	# TODO: Try changing the polynomial kernel degree!
-	# clf = svm.SVC(kernel = 'poly', degree = 4)
+	clf = svm.SVC(kernel = 'poly', degree = 2)
 
-	clf.fit(data,val)
+	clf.fit(data, val)
 
 	testpoint1 = [0,0]
 	label1 = clf.predict([testpoint1])
-	plottestpoint(testpoint1,label1)
+	plottestpoint(testpoint1, label1)
 
+# compute and plot the decision function
 if p1f:
-	# plot the decision function
 	ax = plt.gca()
 	xlim = ax.get_xlim()
 	ylim = ax.get_ylim()
