@@ -18,7 +18,7 @@ Spring 2026[^1]
 
 </details>
 
-In this lab, you will experiment with machine learning techniques on your own. Please submit a PDF of the screenshots and answers to the "Lab 9: Machine Learning" assignment on Canvas **by Sunday, April 12, 11:59 p.m.** If you have any questions, feel free to reach out to the TAs or LAs via email (2.12-lab-staff-s26@mit.edu).
+In this lab, you will experiment with machine learning techniques on your own. Please submit a PDF of the screenshots and answers to the "Lab 9: Machine Learning" assignment on Canvas **by Monday, April 13, 11:59 p.m.** If you have any questions, feel free to reach out to the TAs or LAs via email (2.12-lab-staff-s26@mit.edu).
 
 ## 1 Software Set Up
 
