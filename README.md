@@ -131,7 +131,6 @@ We have provided you a classic *hello world* example of NNs used to classify han
 <details><summary><i>Certificate verify failed error?</i></summary>
 On MacOS, you may need to refresh the ceritificates that came with Python when you first installed it. To do so, navigate to the `Applications > Python 3.[xx]` folder and double-click `Install Certificates.command`. This will run a process and produce some output in a terminal window, after which `nn/classifier.py` should run successfully.
 </details>
-<br>
 
 Once the code runs, a window will show up. There are two sets of accuracy over *epochs*: one for the training data and the other for the testing data. As the epoch proceeds, we can see that the accuracies of both the training set and the test set increase as expected. Note that this is an ideal case. Overfitting could happen if the epoch number is set too high and under-fitting could happen if it is too low. Try modifying the code to use an epoch number larger than 5.
 
