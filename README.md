@@ -1,7 +1,7 @@
 # Lab 9: Machine Learning
 
 2.12/2.120 Intro to Robotics  
-Spring 2025[^1]
+Spring 2026[^1]
 
 <details>
   <summary>Table of Contents</summary>
@@ -18,7 +18,7 @@ Spring 2025[^1]
 
 </details>
 
-In this lab, you will experiment with machine learning techniques on your own. Please submit a PDF of the screenshots and answers to the "Lab 9: Machine Learning" assignment on Canvas **by Sunday, April 13, 11:59 p.m.** If you have any questions, feel free to reach out to the TAs or LAs via email (2.12-lab-staff-s25@mit.edu).
+In this lab, you will experiment with machine learning techniques on your own. Please submit a PDF of the screenshots and answers to the "Lab 9: Machine Learning" assignment on Canvas **by Sunday, April 12, 11:59 p.m.** If you have any questions, feel free to reach out to the TAs or LAs via email (2.12-lab-staff-s26@mit.edu).
 
 ## 1 Software Set Up
 
@@ -30,9 +30,9 @@ To install Scikit-Learn, enter `pip3 install scikit-learn` in your terminal.
 
 ### 1.2 Tensorflow
 
-To install Tensorflow, enter `pip3 install tensorflow` in your terminal. If this worked for you, then ignore the information below.
+To install Tensorflow, enter `pip3 install tensorflow` in your terminal. If this worked for you, then ignore the information below and start [Section 2](#2-support-vector-machine-svm).
 
-**The section below goes through debugging steps to install TensorFlow. If the below doesn't work for you, or if you don't have time, use `classifier_pytorch.py` instead and install the pytorch libraries: `pip install torch` and `pip install torchvision`**.
+**The following are debugging steps to install TensorFlow. If the below doesn't work for you, or if you don't have time, use `classifier_pytorch.py` instead and install the pytorch libraries: `pip install torch` and `pip install torchvision`**.
 
 If you have a Windows computer and you are running VS Code on your Windows machine, then you may have to perform the following extra steps. Alternatively, you can try running this lab through WSL2, in which case you won't have to do these steps.
 
@@ -50,21 +50,23 @@ More information on installing Tensorflow can be seen [here](https://www.tensorf
 
 ## 2 Support Vector Machine (SVM)
 
-As you may recall from lecture, SVM is a suprevised learning method that can be used to separate data based on features. A support vector is a vector that essentially draws the boundaries between classes based on known, labeled data points.
+As you may recall from lecture, SVM is a supervised learning method that can be used to separate data based on features. A support vector is a vector that essentially draws the boundaries between classes based on known, labeled data points.
 
 ### 2.1 Linearly Separable Case
 
-First, open `svm/p1abc.py`. At the top you will notice three boolean variables, `p1a`, `p1b`, `p1c`. For now, please set `p1a` to `True`, and `p1b` and `p1c` to `False`. Make sure you are in the `lab9_2025/svm` directory within your terminal. While in the `lab9_2025` directory, enter `cd svm` to navigate to that directory. Run `p1abc.py`. You should see a figure pop up with a bunch of red data and a bunch of blue data in distinct groups. This is the known and classified data that we will use to train our first SVM.
+First, open `svm/p1abc.py`. At the top you will notice three boolean variables, `p1a`, `p1b`, `p1c`. For now, please set `p1a` to `True`, and `p1b` and `p1c` to `False`.
+
+Make sure you are in the `lab9_2026/svm` directory within your terminal (while in the `lab9_2026` directory, enter `cd svm` to navigate to that directory). Run `p1abc.py`. You should see a figure pop up with a bunch of red data and a bunch of blue data in distinct groups. This is the known and classified data that we will use to train our first SVM.
 
 Now, set both `p1a` and `p1b` to be `True`. This is where we actually train our data.
 
-Within the `p1b` if statement starting on line `44`, you will see the following:
+Within the `if p1b` statement starting on line `48`, you will see the following:
 ```
-clf = svm.LinearSVC() # creates a Linear SVC class
-clf.fit(data, val) # fits the data with and their labels (val)
-                   # using an SVM with linear kernel
+clf = svm.LinearSVC() # creates an instance of the Linear SVC class
+clf.fit(data, val) 	  # fits the data and their labels (val) using our SVM
+                      # with a linear kernel
 ```
-The first command makes `clf` an instance of the `LinearSVC` class and the second command uses the fit method to generate a support vector that separates the `(x,y)` data points based on their known value/classification. In this case, if you look in `svm/data_a.csv`, the red points in the bottom left corner are classified as a `0` and the blue points are classified as a `1`.
+The first command makes `clf` an instance of the `LinearSVC` class and the second command uses the fit method to generate a support vector that separates the `(x, y)` data points based on their known value/classification. In this case, if you look in `svm/data_a.csv`, the red points in the bottom left corner are each classified as a `0` and the blue points are each classified as a `1`.
 
 After the data has been fitted, the SVM is used to predict the classification of two additional test points, plotted with + signs. You should see that they both appear blue, meaning the SVM classified those data points as most likely belonging to the `1` label.
 
@@ -86,11 +88,11 @@ class sklearn.svm.SVC(*, C=1.0, kernel='rbf', degree=3, gamma='scale',
     decision_function_shape='ovr', break_ties=False, random_state=None)
 ```
 
-We don't often need to deal with ALL of these values, which is why we start off by just using the defaults. In line `46` of the code we simply have `clf = svm.SVC()`. This means that all of the default parameters are used. Depending on the chosen kernel, only certain parameters are actually used by the method. For example `gamma` is not used if the kernel is linear. Don’t worry too much about this now. Check out the above link if you want to see the definition of the class and learn a little more.
+We don't often need to deal with ALL of these values, which is why we start off by just using the defaults. In line `50` of the code we simply have `clf = svm.SVC()`. This means that all of the default parameters are used. Depending on the chosen kernel, only certain parameters are actually used by the method; for example, `gamma` is not used if the kernel is linear. Don’t worry too much about this now. Check out the above link if you want to see the definition of the class and learn a little more.
 
 Now, change `p1e` to `True` and run the code again. In this section, instead of using the `svm.LinearSVC` method, we are using the `svm.SVC` method to fit our data. By default, the `svm.SVC` method uses a radial basis function as its kernel, and it has two parameters: `gamma` and `C`. The `gamma` parameter defines how far the influence of a single training point reaches, with low values meaning far and high values meaning close. It can be seen as the inverse of the radius of influence of samples selected by the model as support vectors. 
 
-The `C` parameter trades off correct classification of training examples against maximization of the decision function’s margin. For larger values of `C`, a smaller margin will be accepted if the decision function is better at classifying all training points correctly. A lower `C` will encourage a larger margin, and therefore a simpler decision function, at the cost of training accuracy. In other words `C` behaves as a regularization parameter in the SVM.
+The `C` parameter trades off correct classification of training examples against maximization of the decision function’s margin. For larger values of `C`, a smaller margin will be accepted if the decision function is better at classifying all training points correctly. A lower `C` will encourage a larger margin, and therefore a simpler decision function, at the cost of training accuracy. In other words, `C` behaves as a regularization parameter in the SVM.
 
 By default `C` is set to 1 and `gamma` is set to 'scale' which means `gamma = 1 / (nfeatures * X.var())`.
 
@@ -102,15 +104,15 @@ Try changing the values of C and gamma and see what happens. Start with `gamma` 
 
 | :question: QUESTION 2 :question:   |
 |:---------------------------------------------------|
-|  Show us some screenshots of any notable changes.  |
+|  Show us some screenshots of any notable changes that occur as you try different combinations of `gamma` and `C` values. Describe how the decision boundaries and margins change in these cases.  |
 
-Now, try changing the kernel and see what happens. The following kernels are available for use: `'linear'`, `'poly'`, `'rbf'`, `'sigmoid'`. 
+Next, try changing the kernel and see what happens. The following kernels are available for use: `'linear'`, `'poly'`, `'rbf'`, `'sigmoid'`. 
 
 | :question: QUESTION 3 :question:   |
 |:---------------------------------------------------|
 | How well does each kernel appear to classify the data? Show some screenshots of the different kernels being used. |
 
-Next, see what happens if we play with the polynomial kernel. By default, it is set to `degree = 3`. Let's use a higher degree and see if it helps. 
+Now, see what happens if we play with the polynomial kernel. By default, it is set to `degree = 3`. Let's use a higher degree and see if it helps. 
 
 | :question: QUESTION 4 :question:   |
 |:---------------------------------------------------|
@@ -118,11 +120,16 @@ Next, see what happens if we play with the polynomial kernel. By default, it is 
 
 ## 3 Neural Network (NN)
 
-We have provided you a classic *hello world* example of NNs used to classify handwritten images of numbers to the number in the image. Make sure you are in the `lab9_2025` directory. If you are in the `lab9_2025/svm` directory, enter `cd ..` to return to the `lab9_2025` directory. Run `nn/classifier.py`.
+We have provided you a classic *hello world* example of NNs used to classify handwritten images of numbers to the number in the image. Make sure you are in the `lab9_2026` directory. If you are in the `lab9_6/svm` directory, enter `cd ..` to return to the `lab9_2026` directory. Run `nn/classifier.py`.
 
 **If you installed pytorch instead (see [1.2 Tensorflow](#12-tensorflow)) run `classifier_pytorch.py`.**
 
-A window will show up. There are two sets of accuracy over *epochs*: one for the training data and the other for the testing data. As the epoch proceeds, we can see that the accuracies of both the training set and the test set increase as expected. Note that this is an ideal case. Overfitting could happen if the epoch number is set too high and under-fitting could happen if it is too low. Try modifying the code to use an epoch number larger than 5.
+<details><summary><i>Certificate verify failed error?</i></summary>
+On MacOS, you may need to refresh the ceritificates that came with Python when you first installed it. To do so, navigate to the `Applications > Python 3.[xx]` folder and double-click `Install Certificates.command`. This will run a process and produce some output in a terminal window, after which `nn/classifier.py` should run successfully.
+</details>
+<br>
+
+Once the code runs, a window will show up. There are two sets of accuracy over *epochs*: one for the training data and the other for the testing data. As the epoch proceeds, we can see that the accuracies of both the training set and the test set increase as expected. Note that this is an ideal case. Overfitting could happen if the epoch number is set too high and under-fitting could happen if it is too low. Try modifying the code to use an epoch number larger than 5.
 
 Now, take a closer look at the code, especially the comments, to understand how it works. In the [previous section](#12-tensorflow) we have installed the Tensorflow library. This is an open source library developed by Google for convenient and efficient deployment of common machine learning techniques. Keras is a NN library that is built on Tensorflow. Some background information: An alternative library is Pytorch, developed by Microsoft and Facebook; feel free to implement with both libraries and make a comparison. In 2.12, we will stick with Tensorflow.
 
@@ -161,4 +168,5 @@ Please compile all your screenshots and answers in a PDF and upload it to the "L
 [^1]: Version 1 - 2020: Jerry Ng, Rachel Hoffman-Bice, Steven Yeung, and Kamal Youcef-Toumi  
   Version 2 - 2021: Phillip Daniel  
   Version 3 - 2024: Jinger Chong  
-  Version 4 - 2025: Roberto Bolli, Kaleb Blake
+  Version 4 - 2025: Roberto Bolli, Kaleb Blake  
+  Version 5 - 2026: Stephan Stansfield
