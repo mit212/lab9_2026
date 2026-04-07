@@ -34,6 +34,8 @@ To install Tensorflow, enter `pip3 install tensorflow` in your terminal. If this
 
 **The following are debugging steps to install TensorFlow. If the below doesn't work for you, or if you don't have time, use `classifier_pytorch.py` instead and install the pytorch libraries: `pip install torch` and `pip install torchvision`**.
 
+<details><summary><i>TensorFlow installation debugging for Windows</i></summary>
+
 If you have a Windows computer and you are running VS Code on your Windows machine, then you may have to perform the following extra steps. Alternatively, you can try running this lab through WSL2, in which case you won't have to do these steps.
 
 Make sure you are using a Python version that is 3.7 - 3.10. Remeber that you can check your Python version by entering `python -V` or `python3 -V` in the terminal. Anything above Tensorflow 2.10 is not supported on the GPU on Windows Native, and Tensorflow 2.10 is only compatible with Python version 3.7-3.10. See more Tensorflow version compatibility information [here](https://www.tensorflow.org/install/source_windows#cpu). If you need to downgrade your Python version see this [link](https://medium.com/@codelancingg/how-to-downgrade-python-version-fb7b9087e776). 
@@ -47,6 +49,8 @@ You can see more information about enabling Windows long paths [here](https://le
 Once you confirm you're using a compatible Python version and long paths are enabled, use `pip install "tensorflow<2.11"` to install Tensorflow. Open a Python shell in the terminal by entering `python` or `python3`, whichever Python is the correct version to run Tensorflow. Enter `import tensorflow` to test if Tensorflow works. Enter `exit()` or press `Ctrl-D` to exit the Python shell. If you get an error related to the Numpy version, you may also have to downgrade your Numpy to a version less than 2.0. Enter the command `python -m pip install "numpy<2"`. Replace `python` with `python3` if you are using Python 3. Test out `import tensorflow` again and make sure it works.
 
 More information on installing Tensorflow can be seen [here](https://www.tensorflow.org/install/pip#windows-native_1).
+
+</details>
 
 ## 2 Support Vector Machine (SVM)
 
@@ -155,7 +159,7 @@ The notebook features an example of a more advanced machine learning technique t
 
 The code is divided into several parts. The first part involves displaying the image and the mask. As you'd expect, the image is just an image of a pet. The mask is the segmented image that we want to produce with the model. The next part is the construction of the CNN and the fitting of the system. It requires a lot more training than the previous example, 20 epochs instead of 5. The training also requires a lot more compute, which is why we asked you to run it on Colab. After each epoch, there is a callback written to save the weights at the end of the training and also a callback to display the predicted image after training. The last part is the training loss and validation loss after each epoch. There models are saved in the folder.
 
-Click the bracket `[ ]` in front of each code block sequentially to run the code. Make sure to read the descriptions carefully. **Do not worry if you get an error during the `pip install` step (it may also take a long time). If you get an error importing the pet dataset, change the code to `dataset, info = tfds.load('oxford_iiit_pet:4.*.*', with_info=True)`.**
+Click the bracket `[ ]` or play button in front of each code block sequentially to run the code. Make sure to read the descriptions carefully. **Do not worry if you get an error during the `pip install` step (it may also take a long time). If you get an error importing the pet dataset, change the code to `dataset, info = tfds.load('oxford_iiit_pet:4.*.*', with_info=True)`.**
 
 | :question: QUESTION 7 :question:   |
 |:---------------------------------------------------|
